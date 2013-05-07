@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns	= "http://www.w3.org/ns/widgets"
+	xmlns:gap	= "http://phonegap.com/ns/1.0"
+	id		    = "com.github.santeriv.pulljson.demo.app"
+	version 	= "1.0.0">
+
+	<name>pulljson.com list test app based on JQM boilerplate</name>
+
+	<description>
+        Open Lists view and see Lazy loaded section how it works
+	</description>
+
+	<author href="http://www.github.com/santeriv" email="santeri.vesalainen@gmail.com">
+		Santeri Vesalainen
+	</author>
+
+  <preference name="splash-screen-duration" value="3000" />
+  <preference name="permissions" value="none"/>
+
+  <icon src="./apple-touch-icon-72x72-precomposed.png" width="72" height="72" />  
+
+  <gap:splash src="images/startup.png" />
+  
+  <!--TODO: feature name="http://api.phonegap.com/1.0/geolocation"/-->
+  
+  <access origin="http://pulljson.com" browserOnly="true" />
+  
+</widget>
