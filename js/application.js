@@ -81,11 +81,10 @@ function martat(data) {
 	    var martattemplatesource = 
 		    "{{#each weekmenu}}"+
 		    "<li>{{this.date}}\n"+
-		    "	<ul>\n"+
+		    "	<br />\n"+
 				"{{#each this.menu}}"+
-		    "		<li>{{this}}</li>\n"+
+		    "		\t\t{{this}}<br />\n"+
 				"{{/each}}"+
-		    "	</ul>\n"+
 		    "</li>\n"+
 		    "{{/each}}";
 		var martattemplate = Handlebars.compile(martattemplatesource);
