@@ -3,14 +3,14 @@
 
 
 /* TEAM */
-  <your title>: <your name>
-  Site: 
-  Twitter: 
-  Location: 
+  Developer: Santeri Vesalainen
+  Site: http://lounaspori.orionhub.org:8080/
+  Twitter: @santeriv
+  Location: Pori, Finland
 
 /* THANKS */
-      <name>: <url>
+      Andy Matthews: https://github.com/commadelimited/jQuery-Mobile-Boilerplate
 
 /* SITE */
-  Components: jQuery Mobile
-  Software: 
+  Components: jQuery Mobile, Handlebars.js, underscore.js
+  Software: orionhub.org, github.com, builder.phonegap.com

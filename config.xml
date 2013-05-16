@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns	= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		    = "com.github.santeriv.pulljson.demo.app"
+	id		    = "com.github.santeriv.pulljson.lounaspori.app"
 	version 	= "1.0.0">
 
-	<name>pulljson.com list test app based on JQM boilerplate</name>
+	<name>lounaspori</name>
 
 	<description>
-        Open Lists view and see Lazy loaded section how it works
+        Listaa eri lounaspaikkojen ruokalistoja Porissa 
 	</description>
 
 	<author href="http://www.github.com/santeriv" email="santeri.vesalainen@gmail.com">
