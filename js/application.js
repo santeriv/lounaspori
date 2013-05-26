@@ -26,15 +26,27 @@ function start_martat_load(){
 }
     
 function martat(data) {
+            var valuecondition = function(value) {return value.text || (value.EM && value.EM.text) || undefined};
+
 			var result = {};
             var weekmenu = [];
             var daymenu;
             var menu = new Array();
+            
+            /* test of changing data before looping it
+            var filteredresults = _(data.results).chain()
+				.pluck("EM").reject(_.isUndefined)
+				.pluck("text").reject(_.isUndefined).value();
+			data.results = _.extend( data.results, filteredresults);
+            console.log('flattenedresults=',filteredresults);
+            */            
+            
             $.each(data.results, function(key, val) {
-                if(val.text !== undefined) {
+            	var textvalue = valuecondition(val);
+                if(textvalue !== undefined) {
 					/*check if text matches with Date*/
 					var regex = /(MA|Maanantai|TI|Tiistai|KE|Keskiviikko|TO|Torstai|PE|Perjantai).\d?\d.\d?\d./gi;
-                	var date = val.text.match(regex);
+                	var date = textvalue.match(regex);
                 	if(date !== null) 
                 	{
 		                if(weekmenu !== null && daymenu !== undefined){
@@ -44,7 +56,7 @@ function martat(data) {
                 		/*empty daymenu, and prepare new one*/
 	                	menu = new Array();
 	                	daymenu = {};
-	                	var menuitem = val.text.split(date)[1];
+	                	var menuitem = textvalue.split(date)[1];
 	                	daymenu["date"]=date;
 	                	menuitem = menuitem.trim();
 	                	menu.push(menuitem);
@@ -52,13 +64,14 @@ function martat(data) {
                 	}
                 	else if(!_.isEmpty(daymenu) && _.size(daymenu.menu) < 4/*max four rows per day*/) {
 	                	/*add another meal for date*/
-	                	var menuitem = val.text;
+	                	var menuitem = textvalue;
 	                	menuitem = menuitem.trim();
 	                	menu.push(menuitem);
 	                	daymenu["menu"]=menu;
 	            	}
                 }
    		});
+   		/*console.log('weekmenu=',weekmenu);*/
    		if(weekmenu !== undefined){
    			/*clean last daymenu empty items*/
    			daymenu.menu = _.filter(daymenu.menu, function(menuitem){ return !_.isEmpty(menuitem); });
