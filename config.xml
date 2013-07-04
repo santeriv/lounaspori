@@ -17,9 +17,10 @@
   <preference name="splash-screen-duration" value="3000" />
   <preference name="permissions" value="none"/>
 
-  <icon src="./apple-touch-icon-72x72-precomposed.png" width="72" height="72" />  
+  <!--icon src="./apple-touch-icon-72x72-precomposed.png" width="72" height="72" /-->  
+  <icon src="images/drawable-mdpi/ic_launcher.png" width="72" height="72" />  
 
-  <gap:splash src="images/startup.png" />
+  <gap:splash src="images/drawable-mdpi/startup.png" />
   
   <!--TODO: feature name="http://api.phonegap.com/1.0/geolocation"/-->
   
