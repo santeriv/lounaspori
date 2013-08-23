@@ -19,7 +19,27 @@ $(document).on("pagebeforechange", function(event) {
 	    /*wanha juhana*/
 	    start_wanhajuhana_load();
 	}
+	if(event.target.baseURI.indexOf('sofia.html') !== -1) {
+	    /*ravintola sofia*/
+	    start_sofia_load();
+	}
 });
+
+function start_sofia_load(){
+	var site = "http://www.amica.fi/ravintolasofia";
+	var jqueryselector = 'find("div.ContentArea tr td:nth-child(2)")';
+	var datahandler = function(data) {
+		var valuecondition = function(value) {
+			return (value.P.STRONG && value.P.STRONG.text) || value.P.text || undefined;
+		};
+		var dateregex = /^(Maanantai|Tiistai|Keskiviikko|Torstai|Perjantai)/gi;
+		var maxmealrows = 10;
+		var weekmenu = parselunchdata(data,valuecondition,dateregex,maxmealrows);
+		var cssListSelector = "#sofia";
+		refreshlunchlist(weekmenu,cssListSelector);
+	};
+	jqueryp(site,jqueryselector,datahandler);
+}
 
 function start_wanhajuhana_load(){
 	var site = "http://www.wanhajuhana.fi/index2.php";
@@ -116,8 +136,9 @@ function refreshlunchlist(weekmenulistresult,listCSSselector) {
  *
  *
  ***/
-function parselunchdata(data,valuecondition,dateregex) {
+function parselunchdata(data,valuecondition,dateregex, maxrowsperday) {
 	var result = {};
+	var maxrowsperday = maxrowsperday || 4;
 	var weekmenu = [];
 	var daymenu;
 	var menu = new Array();
@@ -150,7 +171,7 @@ function parselunchdata(data,valuecondition,dateregex) {
             	menu.push(menuitem);
             	daymenu["menu"]=menu;
         	}
-        	else if(!_.isEmpty(daymenu) && _.size(daymenu.menu) < 4/*max four rows per day*/) {
+        	else if(!_.isEmpty(daymenu) && _.size(daymenu.menu) < maxrowsperday) {
             	/*add another meal for date*/
             	var menuitem = textvalue;
             	menuitem = menuitem.trim();
