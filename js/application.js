@@ -23,7 +23,46 @@ $(document).on("pagebeforechange", function(event) {
 	    /*ravintola sofia*/
 	    start_sofia_load();
 	}
+	if(event.target.baseURI.indexOf('saikku.html') !== -1) {
+	    /*saikku kanttiini*/
+	   start_saikku_load();
+	}
+	if(event.target.baseURI.indexOf('hhcafe.html') !== -1) {
+	    /*hh cafe*/
+	    start_hhcafe_load();
+	}
 });
+
+function start_hhcafe_load(){
+	var site = "http://www.hhnet.fi/HHnet.aspx?id=130&p1=130&p2=130&hhcafe=66";
+	var jqueryselector = 'find("div[id=\'ContentPlaceHolderMainDiv_LunchList1_MenuPanel\'] table tr td")';
+	var datahandler = function(data) {
+		var valuecondition = function(value) {
+			return value.SPAN && value.SPAN.text || undefined;
+		};
+		var maxmealrows = 7;
+		var dateregex = /^(MA$|Maanantai|TI$|Tiistai|KE$|Keskiviikko|TO$|Torstai|PE$|Perjantai)/gi;
+		var weekmenu = parselunchdata(data,valuecondition,dateregex,maxmealrows);
+		var cssListSelector = "#hhcafe";
+		refreshlunchlist(weekmenu,cssListSelector);
+	};
+	jqueryp(site,jqueryselector,datahandler);
+}
+
+function start_saikku_load(){
+	var site = "http://opiskelijatalo.fi/kanttiini/";
+	var jqueryselector = 'find("table.lounaslista tr td")';
+	var datahandler = function(data) {
+		var valuecondition = function(value) {
+			return value.text || undefined;
+		};
+		var dateregex = /^(MA$|Maanantai|TI$|Tiistai|KE$|Keskiviikko|TO$|Torstai|PE$|Perjantai)/gi;
+		var weekmenu = parselunchdata(data,valuecondition,dateregex);
+		var cssListSelector = "#saikku";
+		refreshlunchlist(weekmenu,cssListSelector);
+	};
+	jqueryp(site,jqueryselector,datahandler);
+}
 
 function start_sofia_load(){
 	var site = "http://www.amica.fi/ravintolasofia";
@@ -150,7 +189,6 @@ function parselunchdata(data,valuecondition,dateregex, maxrowsperday) {
 	data.results = _.extend( data.results, filteredresults);
     console.log('flattenedresults=',filteredresults);
     */
-
     $.each(data.results, function(key, val) {
     	var textvalue = valuecondition(val);
         if(textvalue !== undefined) {
