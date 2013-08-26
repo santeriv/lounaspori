@@ -21,7 +21,6 @@
   <!--icon src="./apple-touch-icon-72x72-precomposed.png" width="72" height="72" /-->  
   <icon src="images/drawable-mdpi/ic_launcher.png" width="72" height="72" />  
 
-<feature name="SplashScreen" value="org.apache.cordova.core.SplashScreen" />
   <gap:splash src="images/drawable-mdpi/startup.png" />
   
   <!--TODO: feature name="http://api.phonegap.com/1.0/geolocation"/-->
