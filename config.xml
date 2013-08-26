@@ -24,6 +24,6 @@
   
   <!--TODO: feature name="http://api.phonegap.com/1.0/geolocation"/-->
   
-  <access origin="http://pulljson.com" browserOnly="true" />
+  <access origin="*" browserOnly="true" />
   
 </widget>
