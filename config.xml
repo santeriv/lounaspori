@@ -22,8 +22,9 @@
 
   <gap:splash src="images/drawable-mdpi/startup.png" />
   
-  <!--TODO: feature name="http://api.phonegap.com/1.0/geolocation"/-->
-  
+  <feature name="http://api.phonegap.com/1.0/device" />
+  <!-- Added because of WinPhone issue https://github.com/phonegap/build/issues/109#issuecomment-27545497 -->
+
   <access origin="*" browserOnly="true" />
   
 </widget>
