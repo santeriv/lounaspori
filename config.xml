@@ -14,6 +14,7 @@
 		Santeri Vesalainen
 	</author>
 
+  <preference name="phonegap-version" value="3.1.0" />
   <preference name="splash-screen-duration" value="3000" />
   <preference name="permissions" value="none"/>
 
@@ -21,9 +22,7 @@
   <icon src="images/drawable-mdpi/ic_launcher.png" width="72" height="72" />  
 
   <gap:splash src="images/drawable-mdpi/startup.png" />
-  
-  <feature name="http://api.phonegap.com/1.0/device" />
-  <!-- Added because of WinPhone issue https://github.com/phonegap/build/issues/109#issuecomment-27545497 -->
+  <gap:splash src="images/winphone/SplashScreenImage.jpg" gap:platform="winphone" />
 
   <access origin="*" browserOnly="true" />
   
