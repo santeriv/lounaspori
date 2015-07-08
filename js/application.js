@@ -94,7 +94,11 @@ function start_sofia_load(){
 		$(cssListSelector).listview('refresh');
 
 	};
-	jsonp_call(api_site,datahandler);
+	$.ajax({
+		dataType: 'jsonp',
+		url: site,
+		success: successhandler
+	});
 }
 
 function start_wanhajuhana_load(){
