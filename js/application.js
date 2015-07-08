@@ -94,7 +94,11 @@ function start_sofia_load(){
 		$(cssListSelector).listview('refresh');
 
 	};
-	jsonp_call(api_site,datahandler);
+	$.ajax({
+		dataType: 'jsonp',
+		url: api_site,
+		success: successhandler
+	});
 }
 
 function start_wanhajuhana_load(){
@@ -119,7 +123,7 @@ function start_cafesolo_load(){
 		var valuecondition = function(value) {
 			return value.text || (value.EM && value.EM.text) || undefined;
 		};
-		var dateregex = /^(MA|Maanantai|TI|Tiistai|KE|Keskiviikko|TO|Torstai|PE|Perjantai)/gi;
+		var dateregex = /^(MA|\n\t\tMa|Maanantai|TI|\n\t\tTI|Tiistai|KE|\n\t\tKE|Keskiviikko|TO|\n\t\tTO|Torstai|PE|\n\t\tPE|Perjantai)/gi;
 		var weekmenu = parselunchdata(data,valuecondition,dateregex);
 		var cssListSelector = "#cafesolo";
 		refreshlunchlist(weekmenu,cssListSelector);
