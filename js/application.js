@@ -96,7 +96,7 @@ function start_sofia_load(){
 	};
 	$.ajax({
 		dataType: 'jsonp',
-		url: site,
+		url: api_site,
 		success: successhandler
 	});
 }
