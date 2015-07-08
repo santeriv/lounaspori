@@ -97,7 +97,7 @@ function start_sofia_load(){
 	$.ajax({
 		dataType: 'jsonp',
 		url: api_site,
-		success: successhandler
+		success: datahandler
 	});
 }
 
