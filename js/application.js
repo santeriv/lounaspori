@@ -2,6 +2,13 @@
 	jQuery Mobile Boilerplate
 	application.js
 */
+
+var currentDate = new Date();
+var day = currentDate.getDate();
+var month = currentDate.getMonth() + 1;
+var year = currentDate.getFullYear();
+var isofied_date_string = year+'-'+month+'-'+day;/* == (ISO_8601 - leading zeros in date - time stamp - time zone)*/ 
+
 $(document).on("pageinit", function(event) {
     // custom code goes here
 });
@@ -65,19 +72,29 @@ function start_saikku_load(){
 }
 
 function start_sofia_load(){
-	var site = "http://www.amica.fi/ravintolasofia";
-	var jqueryselector = 'find("div.ContentArea tr td:nth-child(2)")';
+	var api_site = "http://www.amica.fi/api/restaurant/menu/week?language=fi&restaurantPageId=8436&weekDate="+isofied_date_string;
 	var datahandler = function(data) {
-		var valuecondition = function(value) {
-			return (value.P.STRONG && value.P.STRONG.text) || value.P.text || undefined;
-		};
-		var dateregex = /^(Maanantai|Tiistai|Keskiviikko|Torstai|Perjantai)/gi;
-		var maxmealrows = 10;
-		var weekmenu = parselunchdata(data,valuecondition,dateregex,maxmealrows);
 		var cssListSelector = "#sofia";
-		refreshlunchlist(weekmenu,cssListSelector);
+		var menulisttemplatesource = 
+			    "{{#each LunchMenus}}"+
+			    "<li>{{this.Date}}\n"+
+			    "	<br />\n"+
+				"{{#each this.SetMenus}}"+
+				"		\t\t{{this.Name}} - {{this.Price}}<br />\n"+
+					"{{#each this.Meals}}"+
+					"		\t\t{{this.Name}} - {{this.Diets}}<br />\n"+
+					"{{/each}}"+
+				"{{/each}}"+
+			    "</li>\n"+
+			    "{{/each}}";
+		var menulisttemplate = Handlebars.compile(menulisttemplatesource);
+		var menulist = menulisttemplate(data);
+		/*console.log("menulist content=",menulist);*/
+		$(cssListSelector).append(menulist);
+		$(cssListSelector).listview('refresh');
+
 	};
-	jqueryp(site,jqueryselector,datahandler);
+	jsonp_call(api_site,datahandler);
 }
 
 function start_wanhajuhana_load(){
@@ -97,7 +114,7 @@ function start_wanhajuhana_load(){
 
 function start_cafesolo_load(){
 	var site = "http://www.cafesolo.fi/";
-	var jqueryselector = "find('div.region-lounas li')";
+	var jqueryselector = "find('.region-sidebar-second li')";
 	var datahandler = function(data) {
 		var valuecondition = function(value) {
 			return value.text || (value.EM && value.EM.text) || undefined;
@@ -125,9 +142,19 @@ function start_martat_load(){
 	jqueryp(site,jqueryselector,datahandler);
 }
 
-
 /***
+ * sites that use jsonp.afeld.me 
  *
+ ***/
+function jsonp_call(site,successhandler) {
+   $.ajax({
+	dataType: 'jsonp',
+	url: "https://jsonp.afeld.me/?url="+site,
+	success: successhandler
+  });
+}
+/***
+ * sites that use pulljson.com
  *
  ***/
 function jqueryp(site,jqueryselector,successhandler,forceText) {
@@ -138,7 +165,6 @@ function jqueryp(site,jqueryselector,successhandler,forceText) {
 		url: "http://pulljson.com/jquery?site="+site+"&selector="+jqueryselector+"&forceText="+forceTextParam,
 		success: successhandler
 	});
-	
 }
 
 /***
