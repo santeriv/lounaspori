@@ -94,9 +94,11 @@ function start_sofia_load(){
 		$(cssListSelector).listview('refresh');
 
 	};
+	var site_escaped = 'http%3A%2F%2Fwww.amica.fi%2Fapi%2Frestaurant%2Fmenu%2Fweek%3Flanguage%3Dfi%26restaurantPageId%3D8436%26weekDate%3D'+isofied_date_string;
+	var jsonp_url = 'https://jsonp.afeld.me/?url='+site_escaped;
 	$.ajax({
 		dataType: 'jsonp',
-		url: api_site,
+		url: jsonp_url,
 		success: datahandler
 	});
 }
